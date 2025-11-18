@@ -1,56 +1,84 @@
-# What are some differences between interfaces and types in TypeScript?
+<h2> What are some differences between <strong>Interfaces</strong> and <strong>Types</strong> in TypeScript?</h2>
 
-TypeScript-এ আমরা দু’টো জিনিস খুব বেশি দেখি—interface আর type। দুটোই দেখতে অনেকটা একই রকম, আবার কাজেও অনেক জায়গায় একে-অপরের বিকল্প হিসেবে ব্যবহার করা যায়। তবুও কিছু সূক্ষ্ম পার্থক্য আছে, যেগুলো জানলে কোড আরও পরিষ্কারভাবে লিখতে সুবিধা হয়।
+<p>
+TypeScript-এ আমরা দু’টো জিনিস খুব বেশি দেখি—<code>interface</code> আর <code>type</code>।  
+দুটোই দেখতে একই রকম এবং কাজেও অনেক সময় একে অপরের বিকল্প হিসেবে ব্যবহার করা যায়।  
+কিন্তু কিছু গুরুত্বপূর্ণ পার্থক্য আছে—
+</p>
 
-১) Structure ডিফাইন করা—দুটোই পারে
+<br/>
 
-অবজেক্টের শেপ কেমন হবে, কোন কোন প্রোপার্টি থাকবে—এটা interface ও type দুটো দিয়েই লেখা যায়। তাই এই দিক থেকে একটার তুলনায় আরেকটা শক্তিশালী নয়।
+<h3> ১) Structure ডিফাইন করা — দুটোই পারে</h3>
+<p>
+Object-এর shape কেমন হবে—এটা <code>interface</code> এবং <code>type</code> দুটোই দিয়ে লেখা যায়।
+</p>
 
-২) Interface সহজে Expand করা যায়
+<br/>
 
-Interfaces সাধারণত “বাড়ানো” খুব সহজ। মানে, একই নামে আবার লিখলে TypeScript সেটা.merge করে ফেলে। যেমন:
+<h3> ২) Interface সহজে Expand করা যায়</h3>
+<p>
+Interface সহজে merge হয়ে যায়, মানে একই নামে দুইবার লিখলে TypeScript স্বয়ংক্রিয়ভাবে একসাথে যুক্ত করে ফেলে।
+</p>
 
-interface User {
-  name: string;
-}
+<pre>
+<code>interface User { name: string; }
 
-interface User {
-  age: number;
-}
+interface User { age: number; }
 
-দুটো মিলেই এখন একটাই User হবে।
-Type alias-এর ক্ষেত্রে এটা করা যায় না।
+// এখন User = { name: string; age: number }
+</code>
+</pre>
 
-৩) Type বেশি Flexible
+<p>
+এই সুবিধাটি <strong>type alias</strong> নিয়ে করা যায় না।
+</p>
 
-Type alias দিয়ে আমরা অনেক রকম কাজ করতে পারি—
-union, intersection, primitive type, function signature, tuple—সবই করা যায়।
+<br/>
 
-type ID = string | number;
+<h3> ৩) Type বেশি Flexible</h3>
+<p>
+Type alias দিয়ে union, intersection, primitive, function signature, tuple সহ আরও নানা কিছু করা যায়।
+</p>
 
-Interface দিয়ে union/primitive টাইপ বানানো যায় না।
+<pre>
+<code>type ID = string | number;</code>
+</pre>
 
-৪) Interface মূলত Object শেপের জন্য
+<p>Interface দিয়ে primitive বা union টাইপ তৈরি করা যায় না।</p>
 
-Interface-এর ডিজাইন আসলে object এবং class structure-এর জন্য বেশি উপযোগী। তাই ক্লাস-বেইজড ডিজাইনে interface একটু বেশি স্বাভাবিক লাগে।
+<br/>
 
-৫) Performance বা Runtime-এ কোনোই প্রভাব নেই
+<h3> ৪) Interface মূলত Object Structure-এর জন্য</h3>
+<p>
+Interface class এবং object-ভিত্তিক ডিজাইনে বেশি উপযোগী, তাই OOP স্টাইলে interface ব্যবহার বেশি স্বাভাবিক।
+</p>
 
-এটা কমন ভুল ধারণা যে এর মধ্যে performance পার্থক্য আছে। আসলে দুটোই compile-time জিনিস, JavaScript-এ এদের কোনো অস্তিত্ব থাকে না।
+<br/>
 
+<h3> ৫) Performance বা Runtime-এ কোনো প্রভাব নেই</h3>
+<p>
+দুটোই compile-time construct। JavaScript-এ এদের কোনো অস্তিত্ব থাকে না—তাই performance-এ কোনো পার্থক্য নেই।
+</p>
 
+<hr/>
 
-# Provide an example of using union and intersection types in TypeScript?
+<h1> Provide an example of using union and intersection types in TypeScript. </h1>
 
-TypeScript-এ union আর intersection দুইটাই খুব কাজে লাগে, কিন্তু কাজ দু’টো একদম আলাদা। নিচে ছোট উদাহরণ দিলে ব্যাপারটা পরিষ্কার হয়ে যাবে।
+<p>
+TypeScript-এ union এবং intersection খুব গুরুত্বপূর্ণ।  
+দুটির উদ্দেশ্য সম্পূর্ণ আলাদা — নিচে উদাহরণসহ ব্যাখ্যা করা হলো।
+</p>
 
+<br/>
 
-1. Union Type — একাধিক টাইপের যেকোনো একটাকে অনুমতি দেয়
+<h2> Union Type </h2>
 
-Union মানে “এটা অথবা সেটা”।
-ধরুন, একটা ID কখনো number আবার কখনো string হতে পারে:
+<p>
+Union টাইপ মানে variable একাধিক টাইপের যেকোনো একটিকে গ্রহণ করতে পারে।
+</p>
 
-type ID = number | string;
+<pre>
+<code>type ID = number | string;
 
 function printId(id: ID) {
   console.log("Your ID is:", id);
@@ -58,23 +86,23 @@ function printId(id: ID) {
 
 printId(10);
 printId("A-102");
+</code>
+</pre>
 
-এখানে ID হতে পারে number কিংবা string — দুটোই valid।
+<p>ID এখানে <strong>number</strong> বা <strong>string</strong> — যেকোনো একটিই হতে পারে।</p>
 
+<br/>
 
+<h2> Intersection Type </h2>
 
+<p>
+Intersection টাইপ দুই বা তার বেশি টাইপের সমস্ত property নিয়ে একটি নতুন টাইপ তৈরি করে।
+</p>
 
- 2. Intersection Type — দুইটা টাইপ মিলে একটিতে পরিণত হয়
+<pre>
+<code>type Person = { name: string; };
 
-Intersection মানে “এবং”— অর্থাৎ দুই টাইপের সব প্রপার্টি মিলিয়ে একটা নতুন টাইপ।
-
-type Person = {
-  name: string;
-};
-
-type Employee = {
-  employeeId: number;
-};
+type Employee = { employeeId: number; };
 
 type Staff = Person & Employee;
 
@@ -82,5 +110,10 @@ const user: Staff = {
   name: "Robin",
   employeeId: 101,
 };
+</code>
+</pre>
 
-এখন Staff টাইপে দুটো টাইপের সব properties পাওয়া যাবে — name এবং employeeId দুটোই দিতে হবে।
+<p><strong>Staff</strong> টাইপে এখন দুটো property-ই বাধ্যতামূলক — <code>name</code> এবং <code>employeeId</code>।</p>
+
+
+
