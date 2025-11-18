@@ -16,7 +16,7 @@ function formatValue(
 }
 
 
-function getLength<T>(value: string | T[]): number {
+function getLength(value: string | (string | number)[]): number {
   if (typeof value === "string") {
     return value.length;
   } else if (Array.isArray(value)) {
@@ -75,18 +75,30 @@ function printBookDetails(book: Book): void {
 
 function getUniqueValues<X, Y>(array1: X[], array2: Y[]): (X | Y)[] {
   const result: (X | Y)[] = [];
-  const newArray = [...array1, ...array2];
+  let resultIndex = 0;
+
+  const newArray: (X | Y)[] = [];
+  let newArrayIndex = 0;
+
+  for (let i = 0; i < array1.length; i++) {
+    newArray[newArrayIndex] = array1[i];
+    newArrayIndex++;
+  }
+  for (let i = 0; i < array2.length; i++) {
+    newArray[newArrayIndex] = array2[i];
+    newArrayIndex++;
+  }
 
   for (let i = 0; i < newArray.length; i++) {
     let isExist = false;
-
-    for (let j = 0; j < result.length; j++) {
+    for (let j = 0; j < resultIndex; j++) {
       if (newArray[i] === result[j]) {
         isExist = true;
       }
     }
     if (!isExist) {
-      result.push(newArray[i]);
+      result[resultIndex] = newArray[i];
+      resultIndex++;
     }
   }
 
