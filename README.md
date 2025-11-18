@@ -1,4 +1,4 @@
-1. What are some differences between interfaces and types in TypeScript?
+# What are some differences between interfaces and types in TypeScript?
 
 TypeScript-এ আমরা দু’টো জিনিস খুব বেশি দেখি—interface আর type। দুটোই দেখতে অনেকটা একই রকম, আবার কাজেও অনেক জায়গায় একে-অপরের বিকল্প হিসেবে ব্যবহার করা যায়। তবুও কিছু সূক্ষ্ম পার্থক্য আছে, যেগুলো জানলে কোড আরও পরিষ্কারভাবে লিখতে সুবিধা হয়।
 
@@ -39,12 +39,11 @@ Interface-এর ডিজাইন আসলে object এবং class structur
 এটা কমন ভুল ধারণা যে এর মধ্যে performance পার্থক্য আছে। আসলে দুটোই compile-time জিনিস, JavaScript-এ এদের কোনো অস্তিত্ব থাকে না।
 
 
-5. Provide an example of using union and intersection types in TypeScript.
+
+# Provide an example of using union and intersection types in TypeScript?
 
 TypeScript-এ union আর intersection দুইটাই খুব কাজে লাগে, কিন্তু কাজ দু’টো একদম আলাদা। নিচে ছোট উদাহরণ দিলে ব্যাপারটা পরিষ্কার হয়ে যাবে।
 
-
----
 
 1. Union Type — একাধিক টাইপের যেকোনো একটাকে অনুমতি দেয়
 
